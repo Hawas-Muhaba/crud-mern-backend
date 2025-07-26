@@ -8,7 +8,7 @@ const app = express();
 
 // Use PORT from environment variables, fallback to 5000
 const PORT = process.env.PORT || 5000;
-
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 // Use DB_URI from environment variables
 const DB_URI = process.env.DB_URI; // --- CHANGE THIS LINE ---
 if (!DB_URI) {
@@ -19,8 +19,8 @@ if (!DB_URI) {
 }
 
 app.use(express.json());
-app.use(cors()); // Will be refined for production
-
+// app.use(cors()); // Will be refined for production
+app.use(cors({ origin: FRONTEND_URL })); // Use the environment variable for origin
 mongoose
   .connect(DB_URI, {
     /* ... options ... */
